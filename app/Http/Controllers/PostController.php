@@ -28,9 +28,23 @@ class PostController extends Controller
 
         return view('posts.create');
     }
-    public function store(){
+    public function store(Request $request){
 //        $post = Post::findOrFail($post->id);
 
-        return "AAAA";
+        $request->validate([
+            'title'=>['required', 'min:4'],
+            'body'=>['required'],
+            ]);
+
+        $post = new Post;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+
+        session()->flash('statius','POst Creado');
+
+
+        // Lo mismo que redirect
+        return to_route('posts.index');
     }
 }

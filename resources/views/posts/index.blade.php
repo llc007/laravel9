@@ -3,6 +3,8 @@
     meta-description="Home meta description"
 >
 
+    {{session('status')}}
+
     {{--    <x-slot name="title">--}}
     {{--        Home title--}}
     {{--    </x-slot>--}}

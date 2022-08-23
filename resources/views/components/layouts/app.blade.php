@@ -13,6 +13,10 @@
 {{--@include('partials.navigation')--}}
 <x-layouts.navigation></x-layouts.navigation>
 
+@if(session('status'))
+
+@endif
+
 {{$slot}}
 </body>
 </html>
