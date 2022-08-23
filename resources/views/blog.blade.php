@@ -7,5 +7,11 @@
     {{--        Home title--}}
     {{--    </x-slot>--}}
 
-    <h1>home</h1>
+    <h1>Blog</h1>
+
+{{--    @dump($posts)--}}
+
+    @foreach($posts as $post)
+        <h2>{{$post->title}}</h2>
+    @endforeach
 </x-layouts.app>

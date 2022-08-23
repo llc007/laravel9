@@ -7,5 +7,5 @@
     {{--        Home title--}}
     {{--    </x-slot>--}}
 
-    <h1>home</h1>
+    <h1>Contact</h1>
 </x-layouts.app>
