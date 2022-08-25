@@ -26,7 +26,8 @@ class PostController extends Controller
     public function create(){
 //        $post = Post::findOrFail($post->id);
 
-        return view('posts.create');
+        //Envio un nuevo post vacio para que no se caiga el formulario en la vista
+        return view('posts.create',['post'=>new Post()]);
     }
     public function store(Request $request){
 //        $post = Post::findOrFail($post->id);
@@ -41,10 +42,39 @@ class PostController extends Controller
         $post->body = $request->input('body');
         $post->save();
 
-        session()->flash('statius','POst Creado');
+        session()->flash('status','Post Creado');
 
 
         // Lo mismo que redirect
         return to_route('posts.index');
+    }
+
+    public function edit(Post $post){
+
+
+        return view('posts.edit',['post'=>$post]);
+
+    }
+
+    public function update(Request $request,Post $post){
+
+
+        //        $post = Post::findOrFail($post->id);
+
+        $request->validate([
+            'title'=>['required', 'min:4'],
+            'body'=>['required'],
+        ]);
+
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+
+        session()->flash('status','Post Actualizado');
+
+
+        // Lo mismo que redirect
+        return to_route('posts.show',$post);
+
     }
 }

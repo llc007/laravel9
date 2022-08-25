@@ -15,8 +15,12 @@
     {{--    @dump($posts)--}}
 
     @foreach($posts as $post)
-        <h2>
-            <a href="{{route('posts.show',$post->id)}}">{{$post->title}}</a>
-        </h2>
+        <div style="display: flex; align-items: baseline ">
+
+            <h2>
+                <a href="{{route('posts.show',$post->id)}}">{{$post->title}}</a>
+            </h2> &nbsp;
+            <a href="{{ route('posts.edit',[$post]) }}">Edit</a>
+        </div>
     @endforeach
 </x-layouts.app>

@@ -3,11 +3,13 @@
     meta-description="Formulario para crear nuevo post"
 >
 
-    <h1>Crear nuevo Post</h1>
+    <h1>Editar Post</h1>
 
-    <form action="{{route('posts.store')}}" method="POST">
-        @csrf
+    <form action="{{route('posts.update',$post)}}" method="POST">
+        @csrf @method('PATCH')
+
         @include('posts.form-fields')
+
 
         <button type="submit">Enviar</button>
 
