@@ -7,14 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$title ?? ''}}</title>
     <meta name="description" content="{{$metaDescription ?? "Default description"}}">
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
 {{--@include('partials.navigation')--}}
 <x-layouts.navigation></x-layouts.navigation>
 
 @if(session('status'))
-
+    <div>
+        {{session('status')}}
+    </div>
 @endif
 
 {{$slot}}

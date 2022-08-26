@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SavePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,18 +30,25 @@ class PostController extends Controller
         //Envio un nuevo post vacio para que no se caiga el formulario en la vista
         return view('posts.create',['post'=>new Post()]);
     }
-    public function store(Request $request){
+    public function store(SavePostRequest $request){
 //        $post = Post::findOrFail($post->id);
 
-        $request->validate([
-            'title'=>['required', 'min:4'],
-            'body'=>['required'],
-            ]);
+//        $request->validate([
+//            'title'=>['required', 'min:4'],
+//            'body'=>['required'],
+//            ]);
 
-        $post = new Post;
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
-        $post->save();
+//        $post = new Post;
+//        $post->title = $request->input('title');
+//        $post->body = $request->input('body');
+//        $post->save();
+
+//        Post::create([
+//            'title'=>$request->input('title'),
+//            'body'=>$request->input('body'),
+//        ]);
+
+        Post::create($request->validated());
 
         session()->flash('status','Post Creado');
 
@@ -56,25 +64,35 @@ class PostController extends Controller
 
     }
 
-    public function update(Request $request,Post $post){
+    public function update(SavePostRequest $request,Post $post){
 
 
         //        $post = Post::findOrFail($post->id);
 
-        $request->validate([
-            'title'=>['required', 'min:4'],
-            'body'=>['required'],
-        ]);
+//        $validated = $request->validate([
+//            'title'=>['required', 'min:4'],
+//            'body'=>['required'],
+//        ]);
 
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
-        $post->save();
+//        $post->title = $request->input('title');
+//        $post->body = $request->input('body');
+//        $post->save();
 
-        session()->flash('status','Post Actualizado');
+//        $post->update($validated);
+
+        $post->update($request->validated());
+
+//        session()->flash('status','Post Actualizado');
 
 
         // Lo mismo que redirect
-        return to_route('posts.show',$post);
+        return to_route('posts.show',$post)->with('status','Post actualizado');
 
+    }
+
+    public function destroy(Post $post){
+
+        $post->delete();
+        return to_route('posts.index')->with('status','post eliminado correctamente');
     }
 }

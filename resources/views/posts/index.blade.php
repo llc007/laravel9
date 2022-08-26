@@ -3,7 +3,6 @@
     meta-description="Home meta description"
 >
 
-    {{session('status')}}
 
     {{--    <x-slot name="title">--}}
     {{--        Home title--}}
@@ -21,6 +20,12 @@
                 <a href="{{route('posts.show',$post->id)}}">{{$post->title}}</a>
             </h2> &nbsp;
             <a href="{{ route('posts.edit',[$post]) }}">Edit</a>
+            <form action="{{route('posts.destroy',$post)}}" method="POST">
+
+               @csrf @method('DELETE')
+                <button type="submit">Delete</button>
+
+            </form>
         </div>
     @endforeach
 </x-layouts.app>
