@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+//    Middleware
+public function __construct(){
+    $this->middleware('auth',['except'=>['index','show']]);
+}
+
     //
     public function index()
     {
